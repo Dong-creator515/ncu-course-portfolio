@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>抛物线弹道射击模拟器 · Week 06</title>
+<title>我不是炮神 · 抛物线弹道射击模拟器</title>
 <style>
   :root{
     --bg:       #1a1a24;   /* 深灰科技底色（与第 05 周保持一致） */
@@ -37,9 +37,14 @@
   /* ---------- 左上角数据面板 ---------- */
   #hud{ position:fixed; top:20px; left:20px; padding:13px 16px; min-width:272px; }
   #hud h1{
-    font-size:11px; font-weight:600; letter-spacing:.2em;
-    color:var(--accent); text-transform:uppercase;
-    padding-bottom:8px; margin-bottom:8px;
+    font-size:16px; font-weight:600; letter-spacing:.14em;
+    color:var(--accent);
+    padding-bottom:2px; margin-bottom:2px;
+  }
+  #hud .sub{
+    font-size:10px; letter-spacing:.14em;
+    color:var(--dim);
+    padding-bottom:9px; margin-bottom:9px;
     border-bottom:1px solid var(--line);
   }
   .row{ display:flex; justify-content:space-between; align-items:baseline; gap:18px; line-height:1.82; }
@@ -118,7 +123,8 @@
 
 <!-- ================= 实时数据面板 ================= -->
 <div id="hud" class="panel">
-  <h1>Week 06 · 弹道射击仿真</h1>
+  <h1>我不是炮神</h1>
+  <div class="sub">Week 06 · 抛物线弹道射击仿真</div>
   <div class="row"><span class="k">初速度 v₀</span><span class="v hl" id="v-v0">—</span></div>
   <div class="row"><span class="k">发射角 θ</span><span class="v hl" id="v-theta">—</span></div>
   <div class="row"><span class="k">靶距 D</span><span class="v" id="v-D">—</span></div>
@@ -534,6 +540,32 @@
     ctx.restore();
   }
 
+  // 在 (cx,cy) 处铺设爱心路径（参数方程采样），size = 半宽（米）
+  // 动态求包围盒并以其中心为原点，保证爱心几何居中（不再依赖方程 y 范围的硬编码偏移）
+  // 仅建路径，fill / stroke 由调用方负责
+  function heartPath(cx, cy, size) {
+    var sc = size / 16;
+    var N = 96;
+    var px0 = [], py0 = [];
+    var xmin =  1e9, xmax = -1e9, ymin =  1e9, ymax = -1e9;
+    for (var i = 0; i <= N; i++) {
+      var t = (i / N) * Math.PI * 2;
+      var x = 16 * Math.pow(Math.sin(t), 3);
+      var y = 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
+      px0.push(x); py0.push(y);
+      if (x < xmin) xmin = x; if (x > xmax) xmax = x;
+      if (y < ymin) ymin = y; if (y > ymax) ymax = y;
+    }
+    var xc = (xmin + xmax) / 2, yc = (ymin + ymax) / 2;
+    ctx.beginPath();
+    for (var k = 0; k < px0.length; k++) {
+      var px = cx + (px0[k] - xc) * sc;
+      var py = cy + (py0[k] - yc) * sc;
+      if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+  }
+
   function drawTarget() {
     var bx = wx(DIST), by = wy(TARGET_H);
     var R  = TARGET_R * view.ppm;
@@ -548,23 +580,25 @@
     ctx.lineTo(bx, by + R);
     ctx.stroke();
 
-    // 靶面（由外向内，交替填充）
+    // 靶面（由外向内，交替半透明填充：作为爱心靶心的柔光晕衬底）
     for (var i = RINGS; i >= 1; i--) {
       var r = i * RING_STEP * view.ppm;
       ctx.beginPath();
       ctx.arc(bx, by, r, 0, Math.PI * 2);
-      ctx.fillStyle = (i % 2 === 0) ? 'rgba(78,168,255,.055)' : 'rgba(78,168,255,.12)';
+      ctx.fillStyle = (i % 2 === 0) ? 'rgba(78,168,255,.09)' : 'rgba(78,168,255,.20)';
       ctx.fill();
-      ctx.strokeStyle = 'rgba(120,180,255,.38)';
+      ctx.strokeStyle = 'rgba(120,180,255,.30)';
       ctx.lineWidth = 1;
       ctx.stroke();
     }
 
-    // 靶心
-    ctx.beginPath();
-    ctx.arc(bx, by, Math.max(2.5, 0.35 * view.ppm), 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(126,240,208,.55)';
+    // 爱心靶心：画在环之上、不透明，绝不被环遮挡
+    heartPath(bx, by, 2.0);                        // 半宽 2.0 m → 约 4.0 m 宽，成为靶面主体
+    ctx.fillStyle   = 'rgba(255, 95, 115, .94)';
+    ctx.strokeStyle = 'rgba(255, 150, 160, .9)';
+    ctx.lineWidth   = 1.5;
     ctx.fill();
+    ctx.stroke();
 
     // 十字准线
     ctx.strokeStyle = 'rgba(120,180,255,.30)';
@@ -578,7 +612,7 @@
     ctx.font = '11px Consolas, "Microsoft YaHei", monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
-    ctx.fillText('靶心 ' + TARGET_H + ' m  ·  ' + DIST + ' m', bx, by - R - 14);
+    ctx.fillText('爱心靶  ' + TARGET_H + ' m  ·  ' + DIST + ' m', bx, by - R - 14);
 
     // ---- 弹着散布图：历史命中点 ----
     for (var j = 0; j < impacts.length; j++) {

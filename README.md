@@ -40,7 +40,7 @@ ncu-course-portfolio/
 ├── .gitignore                # Git 忽略规则，避免上传垃圾文件
 ├── assets/                   # 图片、示意图等静态素材（可选）
 ├── week05_pendulum_sim/      # 第 05 周独立模块：双摆混沌仿真
-├── week06_shooting_sim/      # 第 06 周独立模块：抛物线弹道射击仿真
+├── week06_shooting_sim/      # 第 06 周独立模块：我不是炮神（弹道射击仿真）
 └── labs/                     # 实验区：全学期 16 周
     ├── week01/
     │   └── .gitkeep          # 占位文件，保证空目录也能被 Git 记录
@@ -72,7 +72,7 @@ ncu-course-portfolio/
 | 第 03 周 | [`labs/week03`](./labs/week03) | 待补充 | ⬜ 未开始 |
 | 第 04 周 | [`labs/week04`](./labs/week04) | 待补充 | ⬜ 未开始 |
 | 第 05 周 | [`week05_pendulum_sim`](./week05_pendulum_sim) | 双摆混沌仿真（物理建模 + RK4 数值积分 + Canvas 可视化） | 🟨 进行中 |
-| 第 06 周 | [`week06_shooting_sim`](./week06_shooting_sim) | 抛物线弹道射击仿真（含空气阻力 + RK4 + 蒙特卡洛散布验证） | 🟨 进行中 |
+| 第 06 周 | [`week06_shooting_sim`](./week06_shooting_sim) | **我不是炮神** · 抛物线弹道射击（含空气阻力 + RK4 + 蒙特卡洛散布验证） | 🟨 进行中 |
 | 第 07 周 | [`labs/week07`](./labs/week07) | 待补充 | ⬜ 未开始 |
 | 第 08 周 | [`labs/week08`](./labs/week08) | 待补充 | ⬜ 未开始 |
 | 第 09 周 | [`labs/week09`](./labs/week09) | 待补充 | ⬜ 未开始 |
