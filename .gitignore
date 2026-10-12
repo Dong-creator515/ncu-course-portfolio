@@ -1,0 +1,94 @@
+# ============================================================
+#  .gitignore  —  南昌大学 课程个人作品集
+#  作用：告诉 Git “哪些文件不需要上传到 GitHub”
+#  规则：本文件中的路径/后缀名会被 Git 自动忽略
+#  提示：以 # 开头的行是注释；! 开头的行表示“例外，不忽略”
+# ============================================================
+
+# ---------- 1. 操作系统自动生成的文件 ----------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk                      # Windows 快捷方式，换台电脑就失效
+.DS_Store                  # macOS 自动生成
+
+# ---------- 2. 编辑器 / IDE 的本地配置 ----------
+.vscode/*
+!.vscode/settings.json     # 例外：共享的编辑器设置建议保留
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- 3. Office / WPS 临时文件 ----------
+# 形如 ~$实验报告.docx 的临时锁定文件，属于“打开中的文件残留”
+~$*.doc
+~$*.docx
+~$*.xls
+~$*.xlsx
+~$*.ppt
+~$*.pptx
+*.tmp
+
+# ---------- 4. Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# ---------- 5. 嵌入式开发构建产物（STM32 / Keil MDK / CubeIDE / Arduino） ----------
+# 这些文件每次编译都会重新生成，体积大且无版本意义
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.axf
+*.map
+*.lst
+*.crf
+*.d
+*.dep
+*.lnp
+*.sct
+*.htm
+*.build_log.htm
+Debug/
+Release/
+Objects/
+Listings/
+build/
+.stm32cubeide/
+.settings/
+.stmcube/
+*.ioc.bak
+*.bak
+
+# ---------- 6. 依赖与缓存 ----------
+node_modules/
+.cache/
+*.log
+
+# ---------- 7. 密钥与隐私（重要！绝对不要上传） ----------
+.env
+.env.*
+*.pem
+*.key
+*.p12
+id_rsa
+id_rsa.pub
+
+# ---------- 8. 大体积素材 ----------
+# 视频、压缩包、PS 源文件体积大，会让仓库变得臃肿。
+# 如果课程明确要求提交压缩包，删掉下面这 5 行即可。
+*.zip
+*.rar
+*.7z
+*.psd
+*.mp4
