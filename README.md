@@ -39,6 +39,7 @@ ncu-course-portfolio/
 ├── README.md                 # 仓库总览（本文件）
 ├── .gitignore                # Git 忽略规则，避免上传垃圾文件
 ├── assets/                   # 图片、示意图等静态素材（可选）
+├── week05_pendulum_sim/      # 第 05 周独立模块：双摆混沌仿真
 └── labs/                     # 实验区：全学期 16 周
     ├── week01/
     │   └── .gitkeep          # 占位文件，保证空目录也能被 Git 记录
@@ -69,7 +70,7 @@ ncu-course-portfolio/
 | 第 02 周 | [`labs/week02`](./labs/week02) | 待补充 | ⬜ 未开始 |
 | 第 03 周 | [`labs/week03`](./labs/week03) | 待补充 | ⬜ 未开始 |
 | 第 04 周 | [`labs/week04`](./labs/week04) | 待补充 | ⬜ 未开始 |
-| 第 05 周 | [`labs/week05`](./labs/week05) | 待补充 | ⬜ 未开始 |
+| 第 05 周 | [`week05_pendulum_sim`](./week05_pendulum_sim) | 双摆混沌仿真（物理建模 + RK4 数值积分 + Canvas 可视化） | 🟨 进行中 |
 | 第 06 周 | [`labs/week06`](./labs/week06) | 待补充 | ⬜ 未开始 |
 | 第 07 周 | [`labs/week07`](./labs/week07) | 待补充 | ⬜ 未开始 |
 | 第 08 周 | [`labs/week08`](./labs/week08) | 待补充 | ⬜ 未开始 |
@@ -83,6 +84,10 @@ ncu-course-portfolio/
 | 第 16 周 | [`labs/week16`](./labs/week16) | 综合实验与期末总结 | ⬜ 未开始 |
 
 **状态图例**：⬜ 未开始 ｜ 🟨 进行中 ｜ ✅ 已完成
+
+> **目录约定说明**：第 05 周起，实验模块改为在仓库**根目录**下建立独立目录（如 `week05_pendulum_sim/`），
+> 以符合课程对"独立无菌子模块"的要求。`labs/weekNN/` 骨架结构保留，用于其余周次的归档；
+> `labs/week05/` 为早期生成的占位目录，不再作为第 05 周的入口。
 
 ---
 
